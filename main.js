@@ -44,26 +44,30 @@ submit.onclick = function ()
         category:category.value.toLowerCase(),
     }
 
-    if(mood === 'create') {
-        if (newPro.count > 1) {
-            for (let i = 0; i < newPro.count; i++) {
+    if (title.value != ''
+        && price.value != ''
+        && category.value != '' && newPro.count < 100) {
+        if (mood === 'create') {
+            if (newPro.count > 1) {
+                for (let i = 0; i < newPro.count; i++) {
+                    dataPro.push(newPro)
+                }
+            } else {
                 dataPro.push(newPro)
             }
         } else {
-            dataPro.push(newPro)
-        }
-    }else {
-            dataPro[tmp]=newPro;
+            dataPro[tmp] = newPro;
             mood = 'create';
             submit.innerHTML = 'Create';
             count.style.display = 'block';
         }
-
+        clearData()
+    }
 
     //Save Localstorage
     localStorage.setItem("product", JSON.stringify(dataPro));
 
-    clearData()
+
     showData()
 }
 
@@ -161,7 +165,7 @@ function getSearchMood(id)
 }
 function searchData(value) {
     let table = '';
-    for (let i = 0; i < dataPro.length; i++) {
+    for (let i = 1; i < dataPro.length; i++) {
         if (searchMood == 'title') {
 
             if (dataPro[i].title.includes(value.toLowerCase())) {
